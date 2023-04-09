@@ -36,7 +36,6 @@ const all = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-
     try {
         const payloadTag = new Tag({
             name: req.body.name
