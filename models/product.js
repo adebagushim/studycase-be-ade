@@ -4,19 +4,17 @@ const { Schema } = mongoose;
 const productSchema = new Schema({
     name: {
         type: String,
-        required: true,
-        minlength: 3,
-        maxlenght: 50
+        minlength: [3, 'Panjang nama product minimal 3 karakter'],
+        maxlength: [20, 'Panjang nama product maximal 20 karakter'],
+        required: [true, 'Nama product harus diisi']
     },
     description: {
         type: String,
-        required: true
+        maxlenght: [1000, 'Panjang deskripsi maximal 1000 karakter']
     },
     price: {
         type: Number,
-        required: true,
-        min: 1000,
-        max: 100000000
+        default: 0
     },
     image_url: String
 });
