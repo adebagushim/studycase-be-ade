@@ -24,12 +24,12 @@ const productSchema = new Schema({
 
     category: {
         type: Schema.Types.ObjectId,
-        ref: 'Category'
+        ref: 'category'
     },
 
     tags: {
         type: Schema.Types.ObjectId,
-        ref: 'Tag'
+        ref: 'tag'
     }
 
 }, { timestamps: true }); 

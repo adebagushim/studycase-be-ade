@@ -23,9 +23,36 @@ const byId = async (req, res, next) => {
 
 const all = async (req, res, next) => {
     try {
-        let { skip = 0, limit = 10} = req.query;
+        let { skip = 0, limit = 10, q = '', category = '', tags = [] } = req.query;
+
+        let criteria = {};
+
+        if(q.length){
+            criteria = {
+                ...criteria,
+                name: {$regex: `${q}`, $options: 'i'}
+            }
+        }
+        
+        if(category.length){
+            let categoryResult = await Category.findOne({name: {$regex: `${category}`, $options: 'i'}});
+            
+            if(categoryResult){
+                criteria = {...criteria, category: categoryResult._id}
+            }
+        }
+        
+        if(tags.length){
+            let tagsResult = await Tag.find({name: {$in: tags}});
+            
+            if(tagsResult.length > 0) {
+                criteria = {...criteria, tags: {$in: tagsResult.map(tag => tag._id)}}
+            }
+        }
+
+        let count = await Product.find(criteria).countDocuments();
         let data = await Product
-        .find()
+        .find(criteria)
         .skip(parseInt(skip))
         .limit(parseInt(limit))
         .populate('category')
@@ -34,7 +61,9 @@ const all = async (req, res, next) => {
             const error = new HttpError(DATA_NOT_FOUND_MESSAGE, DATA_NOT_FOUND_CODE, BAD_REQUEST);
             return next(error);
         }
-        req.data = data;
+        return res.json({
+            data, count
+        })
         next();
     } catch (error) {
         const err = new HttpError(GENERAL_ERROR_MESSAGE, ERROR_SERVER);
