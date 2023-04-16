@@ -8,6 +8,7 @@ const Category = require('../models/category')
 const Tag = require('../models/tag')
 
 
+
 const byId = async (req, res, next) => {
     const id = req.params.pid;
     try {
@@ -33,7 +34,7 @@ const all = async (req, res, next) => {
                 name: {$regex: `${q}`, $options: 'i'}
             }
         }
-        
+
         if(category.length){
             let categoryResult = await Category.findOne({name: {$regex: `${category}`, $options: 'i'}});
             
@@ -64,7 +65,6 @@ const all = async (req, res, next) => {
         return res.json({
             data, count
         })
-        next();
     } catch (error) {
         const err = new HttpError(GENERAL_ERROR_MESSAGE, ERROR_SERVER);
         return next(err)
@@ -96,10 +96,11 @@ const create = async (req, res, next) => {
                 delete payload.tags;
             }
         }
-
-        const payloadProduct = new Product({...payload })
+ 
+        const payloadProduct = new Product({...payload})
         const data = await payloadProduct.save();
         req.data = data;
+        console.log(req.body);
         next();
     } catch (error) {
         const err = new HttpError(GENERAL_ERROR_MESSAGE, GENERAL_ERROR_CODE, ERROR_SERVER)

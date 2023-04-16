@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const { dbHost, appPort, product } = require('../config')
 
 const productSchema = new Schema({
     
@@ -20,7 +21,10 @@ const productSchema = new Schema({
         default: 0
     },
 
-    image_url: String,
+    image: {
+        type: String,
+        get: (data) => `${dbHost}:${appPort}/${product}`  + data
+    },
 
     category: {
         type: Schema.Types.ObjectId,
@@ -32,6 +36,6 @@ const productSchema = new Schema({
         ref: 'tag'
     }
 
-}, { timestamps: true }); 
+}, { toJSON: { getters: true }}); 
 
 module.exports = mongoose.model('Product', productSchema);

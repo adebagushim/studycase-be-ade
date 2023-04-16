@@ -10,5 +10,7 @@ module.exports = {
     dbPort: process.env.DB_PORT,
     dbUser: process.env.DB_USER,
     dbPass: process.env.DB_PASS,
-    dbName: process.env.DB_NAME
+    dbName: process.env.DB_NAME,
+    appPort: process.env.APP_PORT,
+    product: process.env.PRODUCT
 };
