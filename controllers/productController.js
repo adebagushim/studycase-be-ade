@@ -4,8 +4,8 @@ const { DATA_NOT_FOUND_CODE, GENERAL_ERROR_CODE } = require('../constant/errorCo
 const { BAD_REQUEST, ERROR_SERVER } = require('../constant/errorHttp');
 const { DATA_NOT_FOUND_MESSAGE, GENERAL_ERROR_MESSAGE } = require('../constant/errorMessage');
 const { number, generalMessage } = require('../constant/app');
-const Category = require('../models/category')
-const Tag = require('../models/tag')
+const Category = require('../models/category');
+const Tag = require('../models/tag');
 
 
 

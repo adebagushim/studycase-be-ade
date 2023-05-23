@@ -34,6 +34,7 @@ const userSchema = new Schema({
 
     token: [String]
 
+
 }, {timestamps: true});
 
 userSchema.path('email').validate(function(value){

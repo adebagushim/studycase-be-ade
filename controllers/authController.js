@@ -36,17 +36,6 @@ const login = (req, res, next) => {
   };
 
 
-const me = (req, res, next) => {
-    if(!req.User){
-        res.json({
-            err: 1,
-            message: `You're not login or token expired`
-          })
-    }
-    res.json(req.user);
-}
-
 module.exports = {
     login,
-    me
 };
