@@ -14,7 +14,7 @@ const hashing = async (plainPassword) => {
 
 const defineAbilityFor = (user) => {
   const { can, cannot, build } = new AbilityBuilder(createMongoAbility);
-  console.log(user.userId);
+  console.log(user);
   if (user.role === 'admin') {
     can('manage', 'all')
   } else if (user.role === 'user') {
@@ -24,6 +24,7 @@ const defineAbilityFor = (user) => {
     can('read','Order', { user_id: user.userId }),
     can('update','User', { user_id: user.userId }),
     can('read','Cart', { user_id: user.userId }),
+    can('update','Cart', { user_id: user.userId }),
     can('view', 'DeliveryAddress'),
     can('create','DeliveryAddress', { user_id: user.userId }),
     can('update','DeliveryAddress', { user_id: user.userId }),
